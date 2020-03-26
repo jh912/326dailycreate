@@ -1,0 +1,86 @@
+一、修改样式
+1、获取或修改元素的内联样式
+元素.style.css属性
+它只能修改内联样式，无法修改样式表中的样式，以后修改就用上面这种
+2、如何获得完整的样式表呢
+computed 计算后的样式总表
+var style=getComputedStyle(元素对象);获取一个元素所有的样式表
+style.css属性 你想要的那个属性值
+计算后的样式会将一些相对单位和不是数值的属性值，换算成数值
+计算后的这些属性是不能让人修改的
+同时操作多个css属性，可以用class来操作
+二、添加、删除
+添加新元素：3步
+1、先创建一个空元素
+var a=document.createElement("元素名");
+2、为新元素添加关键属性
+3、将新元素添加到dom树上
+a、追加到一个父元素下所有子元素的末尾
+父元素.appendChild(新子元素);
+b、插入到一个父元素下的一个子元素之前。
+父元素.insertBefore(新子元素，现元素);
+c、替换一个父元素里面的孩子
+父元素.replaceChild(新子元素，现元素);
+
+优化：尽量减少dom树操作的次数
+1、如果在一个大的父元素下添加某个父元素以及他下面的子元素，那么可以先将它的子元素提前加到某个父元素下，等到最后再将某个父元素添加到一个大的父元素下，从而减少了dom树的操作
+2、如果这个父元素已经在页面中了，那么文档片段对象当托盘，虚拟父元素
+a、先创建一个文档对象
+var frag=docment.createDocumentFragment();
+b、将子元素添加到文档对象中
+frag.appendChild(新的子元素);
+c、将文档对象一次性添加到页面中去
+父元素.appendChild(frag);
+这个文档片段对象frag用完后会自动释放掉
+
+删除元素
+父元素.removeChild("子元素名");
+
+三、HTML DOM常用对象
+1、个别常用元素对象有函数和属性
+img元素的创建有简写
+var img=new Image();  var option=new Option();
+2、table
+table下添加行分组
+var thead=table.createTHead();
+var tbody=table.createTBody();
+var tfoot=table.createTFoot();
+这种的创建和添加必须连着写才能用
+删除行分组
+table.deleteTHead();
+table.deleteTFoot();
+点出属性：table.tHead
+table.tFoot
+table.tBodies[i]
+行分组
+添加行
+var tr=tbody.insertRow(i);不写参数，默认表示末尾追加，i表示在第几行插入
+var tr=tbody.insertRow(0);
+后来居上，倒序
+删除行
+tbody.deleteRow(i);删除i位置的行，相对于tbody内的位置
+删除不确定的哪一行时候,行自带的属性
+tr.rowIndex;
+可以直接用table.deleteRow(tr.rowIndex);
+获取行
+行分组.rows[i];
+3、行：管着格
+添加格
+var td=tr.insertCell();行的末尾追加一个新格
+删除格
+tr.deleteCell()
+获取格
+tr.cells[i]
+补充:comfirm("提示消息")
+可弹出一个确认框
+var bool=comfirm("提示消息"); true or false
+
+表单元素也有简化的写法
+想要获取哪一个form标签元素呢？var form=document.forms[i];表单form形成了一个数组
+form里面的表单元素也形成了一个数组
+想找哪一个表单元素呢?form.elements[i或者name名或者id];
+表单元素 button input select textarea
+如果表单元素有name名，获取它可以简化，form.name名 
+表单元素自动获得焦点
+表单元素.focus();
+

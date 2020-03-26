@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+ <head>
+	<meta charset="UTF-8">
+	<title>实现带样式的表单验证</title>
+	<link rel="Stylesheet" href="css/5.css" />
+ </head>
+ <body>
+	<form id="form1">
+		<h2>增加管理员</h2>
+		<table>
+			<tr>
+				<td>姓名：</td>
+        <td>
+					<input name="username"/>
+					<span>*</span>
+				</td>
+				<td>
+					<div class="vali_info">
+						10个字符以内的字母、数字或下划线的组合
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>密码：</td>
+				<td>
+					<input type="password" name="pwd"/>
+					<span>*</span>
+				</td>
+				<td>
+					<div class="vali_info">6位数字</div>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td colspan="2">
+          <input type="button" value="保存"/>
+          <input type="reset" value="重填"/>
+				</td>
+			</tr>				
+	    </table>
+	</form>
+<script>
+  var form=document.forms[0];
+  var input1=form.username;
+  input1.onfocus=function(){
+    var div=this.parentNode.nextElementSibling.children[0];
+    div.className="";
+  }
+  input1.onblur=function(){
+    var reg=/^\w{1,10}$/;
+    var a=reg.test(this.value.trim());
+    var div=this.parentNode.nextElementSibling.children[0];
+    div.className=a?"vali_success":"vali_fail";
+  }
+  function huoqu(aa){
+    var div=aa.parentNode.nextElementSibling.children[0];
+    div.className="";
+  }
+  function validate(reg,bb){
+    var a=reg.test(bb.value.trim());
+    var div=bb.parentNode.nextElementSibling.children[0];
+    //div.className=a?"vali_success":"vali_fail";
+		if(a===true){
+			div.className="vali_success";
+			return true;
+		}else if(a===false){
+			div.className="vali_fail";
+			return false;
+		}
+  }
+  var input2=form.pwd;
+  input2.onfocus=function(){
+    huoqu(this);
+  }
+  input2.onblur=function(){
+    var reg=/^\d{6}$/;
+    validate(reg,this);
+
+  }
+	//对两个框的内容进行验证，只有都符合要求，才能ajax
+	var btn=form.elements[2];
+	btn.onclick=function(){
+		if(validate(/^\w{1,10}$/,input1)===false){
+		input1.focus();
+		}else if(validate(/^\d{6}$/,input2)===false){
+			input2.focus();
+		}else{
+			alert("可以进行ajax请求");
+		}
+	}
+
+
+
+  /*
+  //第一个用户名框获得焦点
+  var textname=document.getElementsByName("username")[0];
+  textname.onfocus=function(){
+    //var a=this.parentNode.nextElementSibling.children[0];
+    //a.className="";
+    huode(this);
+  }
+  //第一个用户名框失去焦点
+  textname.onblur=function(){
+    var reg1=/^\w{1,10}$/;
+    //var b=this.parentNode.nextElementSibling.children[0];
+    //var result=reg1.test(this.value.trim());
+    //b.className=result?"vali_success":"vali_fail";
+    validate(this,reg1);
+  }
+  //第二个密码框获得焦点
+  var textupwd=document.getElementsByName("pwd")[0];
+  textupwd.onfocus=function(){
+   // var e=this.parentNode.nextElementSibling.children[0];
+    //e.className="";
+    huode(this);
+  }
+   //第二个密码框失去焦点
+  textupwd.onblur=function(){
+    var reg2=/\d{6}/;
+    validate(this,reg2);
+  }
+  //第二个文本框验证与第一个文本框有相同的地方，所以为了重用代码，来一个封装，谁想用，谁去调用
+  function validate(tet,reg){
+    var b=tet.parentNode.nextElementSibling.children[0];
+    var result=reg.test(tet.value.trim());
+    b.className=result?"vali_success":"vali_fail";
+  }
+  //第二个文本框获得焦点与第一个文本框有相同的地方，所以为了重用代码，来一个封装，谁想用，谁去调用
+  function huode(aa){
+    var a=aa.parentNode.nextElementSibling.children[0];
+    a.className="";
+  }
+  */
+
+
+</script>
+ </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form action="/login">
+  用户名：<input type="text" name="uname"><br>
+  密码：<input type="password" name="upwd"><br>
+  <button>登录</button>
+  </form>
+  <h1 id="d1" style="color: red;">哈哈</h1>
+  
+  <script>
+  /*//表单以及一些表单元素的简单操作
+    var form=document.forms;
+    console.log(form);
+   // console.log(form[0].uname);
+   // console.log(form[0].upwd);
+   var arr=form[0].elements;
+   console.log(arr);
+   console.log(arr[0]);
+   //console.log(arr[1]);
+   //console.log(arr[2]);
+   console.log(form[0].upwd);*/
+   var a=document.getElementById("d1");
+   var b=a.getAttribute("id");
+   console.log(b);
+   a.setAttribute("class","c1");
+    
+  </script>
+  
+</body>
+</html>

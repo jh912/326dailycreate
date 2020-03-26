@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1 style="color:red;background-color: aquamarine; ">今天天气真的很好！我们去爬山吧！</h1>
+  
+</body>
+<script>
+  //查看一个元素的所有样式表
+  //现拿到h1这个元素对象
+  var a=document.querySelector("h1");
+  //获取h1计算后的所有属性值
+  var style=getComputedStyle(a);
+  console.log(style);
+  console.log(style.color);
+  console.log(style.backgroundColor);
+  a.style.color="blue";
+  console.log(style.color);
+</script>
+</html>

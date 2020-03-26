@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //添加元素
+    //先创建一个新的空的a元素
+    var a=document.createElement("a");
+    //给a元素添加一些必要的属性
+    a.innerHTML="go to tmooc";
+    a.href="http://www.tmooc.cn";
+    //把这个新的a元素添加到dom树上去
+    document.body.appendChild(a);
+    var input=document.createElement("input");
+    //将input添加到a元素之后
+    document.body.appendChild(input); 
+    //将input添加到a元素之前
+    document.body.insertBefore(input,a); 
+    //将input替换掉a元素
+    document.body.replaceChild(input,a); 
+  </script>
+  
+  
+</body>
+
+</html>

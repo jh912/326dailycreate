@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+  <a id="d1" href="#" style="color: red;">go to tmooc</a>
+</div>
+  <script>
+    /*var a=document.getElementById("d1");
+    //查看a元素的完整属性
+    var b=getComputedStyle(a);
+    console.log(b);
+    console.log(b.color);
+    a.className="c1";*/
+    var a=document.getElementById("d1");
+    var p=document.createElement("p");
+    var div=document.querySelector("div");
+    p.innerHTML="大家好，我叫哈哈";
+    p.style.color="red";
+    //div.replaceChild(p,a);
+    //div.insertBefore(p,a);
+    div.appendChild(p);
+    div.removeChild(p);
+    var img=new Image();
+    div.appendChild(img);
+  </script>
+  
+  
+  
+</body>
+</html>

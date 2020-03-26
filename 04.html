@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>动态创建表格</title>
+<meta charset="utf-8" />
+<style>
+	table{width:600px; border-collapse:collapse;
+		text-align:center;
+	}
+	td,th{border:1px solid #ccc}
+</style>
+
+</head>
+<body>
+	<div id="data">
+    <table>
+      <thead>
+        <tr>
+          <th>员工姓名</th>
+          <th>员工薪资</th>
+          <th>员工年龄</th>
+          <th>删除</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+  <script>
+    //动态的添加新元素，并且放入内容
+	var json=[
+    {"ename":"Tom", "salary":11000, "age":25},
+    {"ename":"John", "salary":13000, "age":28},
+    {"ename":"Mary", "salary":12000, "age":25}
+  ];
+  //第一种方法:在table下先生成一个tbody
+  //var tbody=document.createElement("tbody");
+
+  //2、第二种方法:假如tbody一开始就有了，我们就得用一个托盘，文档对象片段
+  //先创建一个文档对象片段
+  var frag=document.createDocumentFragment();
+  var a=document.querySelector("#data>table>tbody");
+  var table=document.querySelector("#data>table");
+  
+  //循环这个json数组
+  for(var emp of json){
+    //每循环一个对象，就创建一个tr，放入tbody下
+    var tr=document.createElement("tr");
+    frag.appendChild(tr);
+    //每得到一个json对象，就遍历它，每遍历一次emp创建一个td，放入tr下
+    for(var key in emp){
+      var td=document.createElement("td");
+      tr.appendChild(td);
+      //再给每个td赋值内容，这样就动态生成了一个大的员工信息表
+      td.innerHTML=emp[key];
+    }
+
+    //在外层循环的每一行末尾添加一格，用来操作删除行的
+    var td=tr.insertCell();
+    var btn=document.createElement("button");
+    btn.innerHTML="×";
+    td.appendChild(btn);
+    //绑定事件处理函数
+    btn.onclick=function(){
+      var tr1=this.parentNode.parentNode;
+      //删除其中一组前来个确认，真的要删除吗？0,1
+      var result=confirm(`确定删除${tr1.cells[0].innerHTML}吗?`);
+      if(result==true){
+        //table里的简单删除行写法，每个行自带rowIndex属性
+        table.deleteRow(tr1.rowIndex);
+      }
+    }
+  }
+  //第一种方法
+  //为了减少对dom树的操作，于是等子元素都上了父元素身上后，再把父元素添加到dom树上去
+  //a.appendChild(tbody);
+
+  //第二种方法
+  //最后把这个装着子元素的托盘添加到tbody这个父元素下，完了，他自己会释放
+  a.appendChild(frag);
+	
+  </script>
+</body>
+</html>

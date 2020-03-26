@@ -1,0 +1,96 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>动态创建表格</title>
+<meta charset="utf-8" />
+<style>
+	table{width:600px; border-collapse:collapse;
+		text-align:center;
+	}
+	td,th{border:1px solid #ccc}
+</style>
+
+</head>
+<body>
+	<div id="data">
+    <table>
+      <thead>
+        <tr>
+          <th>员工姓名</th>
+          <th>员工薪资</th>
+          <th>员工年龄</th>
+          <th>删除</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+  <script>
+    //动态的添加新元素，并且放入内容
+	var json=[
+    {"ename":"Tom", "salary":11000, "age":25},
+    {"ename":"John", "salary":13000, "age":28},
+    {"ename":"Mary", "salary":12000, "age":25}
+  ];
+    var frag=document.createDocumentFragment();
+    var tbody=document.querySelector("tbody");
+    var table=document.querySelector("table");
+    for(var emp of json){
+      var tr=document.createElement("tr");
+      frag.appendChild(tr);
+      for(var key in emp){
+        var td=document.createElement("td");
+        tr.appendChild(td);
+        td.innerHTML=emp[key];
+       
+       
+      }
+      var btn=document.createElement("button");
+       btn.innerHTML="×";
+       var td1=tr.insertCell();
+       td1.appendChild(btn);
+       btn.onclick=function(){
+         var tr2=this.parentNode.parentNode;
+         var result=confirm(`确定要删除${tr2.cells[0].innerHTML}吗?`);
+         if(result==true){
+           table.deleteRow(tr2.rowIndex);
+         }
+       }
+    }
+    tbody.appendChild(frag);
+
+
+  /*//第一种方法:在table下先生成一个tbody
+  //var tbody=document.createElement("tbody");
+
+  //2、第二种方法:假如tbody一开始就有了，我们就得用一个托盘，文档对象片段
+  //先创建一个文档对象片段
+  var frag=document.createDocumentFragment();
+  var a=document.querySelector("#data>table>tbody");
+  
+  //循环这个json数组
+  for(var emp of json){
+    //每循环一个对象，就创建一个tr，放入tbody下
+    var tr=document.createElement("tr");
+    frag.appendChild(tr);
+    //每得到一个json对象，就遍历它，每遍历一次emp创建一个td，放入tr下
+    for(var key in emp){
+      var td=document.createElement("td");
+      tr.appendChild(td);
+      //再给每个td赋值内容，这样就动态生成了一个大的员工信息表
+      td.innerHTML=emp[key];
+    }
+  }
+  //第一种方法
+  //为了减少对dom树的操作，于是等子元素都上了父元素身上后，再把父元素添加到dom树上去
+  //a.appendChild(tbody);
+
+  //第二种方法
+  //最后把这个装着子元素的托盘添加到tbody这个父元素下，完了，他自己会释放
+  a.appendChild(frag);*/
+	
+  </script>
+</body>
+</html>
